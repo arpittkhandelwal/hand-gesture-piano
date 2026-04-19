@@ -1,31 +1,31 @@
 import { motion } from 'framer-motion';
-import { KeyboardMusic, Play, Cpu, Music } from 'lucide-react';
+import { Play, Cpu, Music } from 'lucide-react';
 
 export default function Hero({ onStart }) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden premium-gradient">
-      {/* Background Animated Elements */}
+      {/* Background Animated Elements - Stabilized and Slowed */}
       <motion.div 
         animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1]
+          scale: [1, 1.1, 1], // Reduced scale variation (1.2 -> 1.1)
+          opacity: [0.05, 0.1, 0.05]
         }}
-        transition={{ duration: 8, repeat: Infinity }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} // Slower duration (8s -> 12s)
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-slate-200/40 rounded-full blur-3xl -z-10" 
       />
       <motion.div 
         animate={{ 
-          scale: [1.2, 1, 1.2],
-          opacity: [0.1, 0.15, 0.1]
+          scale: [1.1, 1, 1.1],
+          opacity: [0.05, 0.1, 0.05]
         }}
-        transition={{ duration: 10, repeat: Infinity }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} // Slower duration (10s -> 15s)
         className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-slate-100/40 rounded-full blur-3xl -z-10" 
       />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-4xl"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-white/20 glass mb-8">
@@ -44,8 +44,8 @@ export default function Hero({ onStart }) {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }} // Reduced scale on hover
+            whileTap={{ scale: 0.98 }}
             onClick={onStart}
             className="px-8 py-4 rounded-2xl bg-slate-900 text-white font-semibold text-lg flex items-center gap-2 shadow-xl shadow-slate-900/20"
           >
@@ -53,7 +53,7 @@ export default function Hero({ onStart }) {
           </motion.button>
           
           <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.8)" }}
+            whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.8)" }}
             className="px-8 py-4 rounded-2xl bg-white/50 border border-white/20 glass font-semibold text-lg flex items-center gap-2"
           >
             Watch Demo <Music size={20} />
@@ -61,11 +61,11 @@ export default function Hero({ onStart }) {
         </div>
       </motion.div>
 
-      {/* Floating Animated Hand Visualization */}
+      {/* Floating Animated Hand Visualization - Stabilized */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
+        initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, duration: 1.2 }}
+        transition={{ delay: 0.5, duration: 1.5, ease: "easeOut" }}
         className="mt-20 relative"
       >
         <div className="w-full max-w-2xl mx-auto glass rounded-3xl p-8 shadow-2xl overflow-hidden">
@@ -73,8 +73,8 @@ export default function Hero({ onStart }) {
             {[...Array(12)].map((_, i) => (
               <motion.div
                 key={i}
-                animate={{ height: [20, 60, 20] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
+                animate={{ height: [30, 50, 30] }} // Reduced vertical vibration (20-60 -> 30-50)
+                transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
                 className="w-4 bg-slate-900/20 rounded-full"
               />
             ))}

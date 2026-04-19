@@ -27,6 +27,7 @@ export default function App({ onBack }) {
   const [midiEvents, setMidiEvents] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
   const [aiAssist, setAiAssist] = useState(true);
+  const smoothedHandPosRef = useRef({ x: 0.5, y: 0.5 });
   const [handPos, setHandPos] = useState({ x: 0.5, y: 0.5, active: false });
   
   const particleRef = useRef(null);
@@ -36,7 +37,17 @@ export default function App({ onBack }) {
   useEffect(() => {
     if (results?.multiHandLandmarks?.[0]) {
       const landmark = results.multiHandLandmarks[0][8]; // Index finger
-      setHandPos({ x: 1 - landmark.x, y: landmark.y, active: true });
+      const targetX = 1 - landmark.x;
+      const targetY = landmark.y;
+
+      // Smoothen the movement (Linear Interpolation)
+      // current + (target - current) * lerpFactor
+      const lerpFactor = 0.3;
+      const nextX = smoothedHandPosRef.current.x + (targetX - smoothedHandPosRef.current.x) * lerpFactor;
+      const nextY = smoothedHandPosRef.current.y + (targetY - smoothedHandPosRef.current.y) * lerpFactor;
+
+      smoothedHandPosRef.current = { x: nextX, y: nextY };
+      setHandPos({ x: nextX, y: nextY, active: true });
     } else {
       setHandPos(prev => ({ ...prev, active: false }));
     }
