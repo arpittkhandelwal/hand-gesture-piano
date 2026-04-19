@@ -8,6 +8,7 @@ import ControlsPanel from '../components/controls/ControlsPanel';
 import SoundWave from '../components/effects/SoundWave';
 import WaterfallCanvas from '../components/effects/WaterfallCanvas';
 import ParticleBurst from '../components/effects/ParticleBurst';
+import HandCursor from '../components/piano/HandCursor';
 import { useHandTracking } from '../hooks/useHandTracking';
 import { useAudioEngine } from '../hooks/useAudioEngine';
 import { useTapDetection } from '../hooks/useTapDetection';
@@ -26,24 +27,34 @@ export default function App({ onBack }) {
   const [midiEvents, setMidiEvents] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
   const [aiAssist, setAiAssist] = useState(true);
+  const [handPos, setHandPos] = useState({ x: 0.5, y: 0.5, active: false });
   
   const particleRef = useRef(null);
   const allNotes = getAllNotes(3, 2);
   const activeLandmarksRef = useRef({});
 
-  const handleTap = useCallback((landmark, fingerId) => {
-    // Map landmark X coordinate to a piano key
-    // Landmark X is 0 to 1. Hand tracking is mirrored (right is 0, left is 1 relative to webcam)
-    // We already mirrored it in the overlay, so we'll use (1 - landmark.x) for mapping
-    const keyIndex = allNotes.findIndex(n => {
-      const xMatch = (1 - landmark.x) >= n.xRange[0] && (1 - landmark.x) <= n.xRange[1];
-      const yMatch = landmark.y >= 0.6; 
-      return xMatch && yMatch;
-    });
+  useEffect(() => {
+    if (results?.multiHandLandmarks?.[0]) {
+      const landmark = results.multiHandLandmarks[0][8]; // Index finger
+      setHandPos({ x: 1 - landmark.x, y: landmark.y, active: true });
+    } else {
+      setHandPos(prev => ({ ...prev, active: false }));
+    }
+  }, [results]);
 
-    const noteObj = keyIndex !== -1 ? allNotes[keyIndex] : null;
+  const handleTap = useCallback((fingerId, landmark) => {
+    const mirroredX = 1 - landmark.x;
+    
+    // LAYERED DETECTION: Check Black keys first as they overlap
+    let noteObj = allNotes.find(n => n.type === 'black' && mirroredX >= n.xRange[0] && mirroredX <= n.xRange[1]);
+    
+    // Fall back to White keys if no black key hit
+    if (!noteObj) {
+      noteObj = allNotes.find(n => n.type === 'white' && mirroredX >= n.xRange[0] && mirroredX <= n.xRange[1]);
+    }
 
     if (noteObj) {
+      const keyIndex = allNotes.indexOf(noteObj);
       setPressedNotes(prev => new Set(prev).add(noteObj.fullNote));
       playNote(noteObj.fullNote, 'user');
       activeLandmarksRef.current[fingerId] = noteObj.fullNote;
@@ -167,7 +178,8 @@ export default function App({ onBack }) {
           </div>
 
           {/* Virtual Piano Bottom */}
-          <div className="h-auto">
+          <div className="h-auto relative">
+            <HandCursor x={handPos.x} y={handPos.y} isActive={handPos.active} />
             <PianoKeyboard 
               pressedNotes={pressedNotes} 
               aiPressedNotes={aiPressedNotes}

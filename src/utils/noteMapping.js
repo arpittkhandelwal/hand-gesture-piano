@@ -21,16 +21,35 @@ export function getOctaveNotes(octave) {
   }));
 }
 
+/**
+ * Generates a mapping of all notes to their precise visual boundaries.
+ * Accounts for 2-layer layout (White keys base, Black keys overlapping).
+ */
 export function getAllNotes(startOctave = 3, numOctaves = 2) {
-  let all = [];
+  let notes = [];
   for (let i = 0; i < numOctaves; i++) {
-    all = [...all, ...getOctaveNotes(startOctave + i)];
+    notes = [...notes, ...getOctaveNotes(startOctave + i)];
   }
 
-  // Pre-calculate xRange for each note for tap detection
-  const totalNotes = all.length;
-  return all.map((note, index) => ({
-    ...note,
-    xRange: [index / totalNotes, (index + 1) / totalNotes]
-  }));
+  const whiteNotes = notes.filter(n => n.type === 'white');
+  const whiteKeyWidth = 1 / whiteNotes.length;
+
+  let whiteCount = 0;
+  return notes.map((note) => {
+    let xRange;
+    if (note.type === 'white') {
+      const start = whiteCount * whiteKeyWidth;
+      const end = (whiteCount + 1) * whiteKeyWidth;
+      xRange = [start, end];
+      whiteCount++;
+    } else {
+      // Black keys are centered on the border between two white keys
+      // They typically occupy ~60-70% of the relative width
+      const center = whiteCount * whiteKeyWidth;
+      const width = whiteKeyWidth * 0.6;
+      xRange = [center - width / 2, center + width / 2];
+    }
+
+    return { ...note, xRange };
+  });
 }
