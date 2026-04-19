@@ -38,7 +38,7 @@ export default function Hero({ onStart }) {
         </h1>
         
         <p className="text-xl md:text-2xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          The world's first spatial AI piano. No physical keys, no boundaries. 
+          No physical keys, no boundaries. 
           Just your hands and the music.
         </p>
 
