@@ -42,7 +42,7 @@ export default function App({ onBack }) {
     }
   }, [results]);
 
-  const handleTap = useCallback((fingerId, landmark) => {
+  const handleTap = useCallback((landmark, fingerId) => {
     const mirroredX = 1 - landmark.x;
     
     // LAYERED DETECTION: Check Black keys first as they overlap
