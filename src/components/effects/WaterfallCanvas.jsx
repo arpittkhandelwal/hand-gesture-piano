@@ -54,7 +54,7 @@ export default function WaterfallCanvas({ activeNotes, aiActiveNotes }) {
         shard.y += 5; // Fall speed
         
         const canvasX = (shard.x / 100) * width;
-        const color = shard.isAi ? '129, 140, 248' : '99, 102, 241'; // Indigo vs Primary
+        const color = shard.isAi ? '71, 85, 105' : '15, 23, 42'; // Slate-600 vs Slate-900
         
         const gradient = ctx.createLinearGradient(0, shard.y - shard.length, 0, shard.y);
         gradient.addColorStop(0, `rgba(${color}, 0)`);

@@ -225,7 +225,7 @@ export default function App({ onBack }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent blur-sm pointer-events-none z-50"
+            className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-slate-900 to-transparent blur-sm pointer-events-none z-50"
           />
         )}
       </AnimatePresence>

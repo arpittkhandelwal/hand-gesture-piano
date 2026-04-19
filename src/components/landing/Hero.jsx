@@ -11,7 +11,7 @@ export default function Hero({ onStart }) {
           opacity: [0.1, 0.2, 0.1]
         }}
         transition={{ duration: 8, repeat: Infinity }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl -z-10" 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-slate-200/40 rounded-full blur-3xl -z-10" 
       />
       <motion.div 
         animate={{ 
@@ -19,7 +19,7 @@ export default function Hero({ onStart }) {
           opacity: [0.1, 0.15, 0.1]
         }}
         transition={{ duration: 10, repeat: Infinity }}
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl -z-10" 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-slate-100/40 rounded-full blur-3xl -z-10" 
       />
 
       <motion.div
@@ -29,7 +29,7 @@ export default function Hero({ onStart }) {
         className="max-w-4xl"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-white/20 glass mb-8">
-          <Cpu size={16} className="text-primary" />
+          <Cpu size={16} className="text-slate-900" />
           <span className="text-sm font-medium tracking-wide uppercase">AI-Powered Gesture Tracking</span>
         </div>
         
@@ -75,7 +75,7 @@ export default function Hero({ onStart }) {
                 key={i}
                 animate={{ height: [20, 60, 20] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
-                className="w-4 bg-primary/20 rounded-full"
+                className="w-4 bg-slate-900/20 rounded-full"
               />
             ))}
           </div>

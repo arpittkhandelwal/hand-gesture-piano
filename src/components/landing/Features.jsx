@@ -3,22 +3,22 @@ import { MousePointer2, Zap, Volume2, Hand } from 'lucide-react';
 
 const features = [
   {
-    icon: <Hand className="text-primary" />,
+    icon: <Hand className="text-slate-900" />,
     title: "Real-time AI tracking",
     description: "Sub-millisecond hand landmark detection powered by MediaPipe and TensorFlow.js."
   },
   {
-    icon: <MousePointer2 className="text-blue-500" />,
+    icon: <MousePointer2 className="text-slate-600" />,
     title: "Zero-touch Interaction",
     description: "Play naturally which spatial depth sensing. No physical hardware required."
   },
   {
-    icon: <Volume2 className="text-indigo-500" />,
+    icon: <Volume2 className="text-slate-500" />,
     title: "Studio-quality Sound",
     description: "High-fidelity Salamander Grand Piano samples and professional synth engines."
   },
   {
-    icon: <Zap className="text-amber-500" />,
+    icon: <Zap className="text-slate-400" />,
     title: "Multi-hand Chords",
     description: "Supports up to 10-finger detection for complete musical expression."
   }

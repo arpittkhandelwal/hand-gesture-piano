@@ -15,7 +15,7 @@ const ParticleBurst = forwardRef((props, ref) => {
             vy: (Math.random() - 0.5) * 10,
             size: Math.random() * 4 + 2,
             life: 1,
-            color
+            color: color || '#1e293b' // Slate-800
         });
     }
   }, []);

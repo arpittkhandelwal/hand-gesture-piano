@@ -32,7 +32,7 @@ export default function ControlsPanel({
                 "px-4 py-2 rounded-xl text-xs font-bold transition-all",
                 isRecording 
                   ? "bg-red-50 text-red-600 hover:bg-red-100" 
-                  : "bg-primary/10 text-primary hover:bg-primary/20"
+                  : "bg-slate-100 text-slate-900 hover:bg-slate-200"
               )}
             >
               {isRecording ? "Stop Recording" : "Start New Jam"}
@@ -44,7 +44,7 @@ export default function ControlsPanel({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               onClick={onExportMidi}
-              className="w-full py-3 bg-indigo-600 text-white rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
+              className="w-full py-3 bg-slate-900 text-white rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 hover:bg-slate-800 active:scale-95 transition-all shadow-lg shadow-slate-200"
             >
               <Download className="w-4 h-4" />
               Export MIDI Session
@@ -68,7 +68,7 @@ export default function ControlsPanel({
                   "px-4 py-3 rounded-2xl text-sm font-medium transition-all border",
                   currentInstrument === inst 
                     ? "bg-slate-900 text-white border-slate-900 shadow-md" 
-                    : "bg-white text-slate-600 border-slate-100 hover:border-primary/30"
+                    : "bg-white text-slate-600 border-slate-100 hover:border-slate-300"
                 )}
               >
                 {inst}
@@ -78,9 +78,9 @@ export default function ControlsPanel({
         </div>
 
         {/* AI Assist Toggle */}
-        <div className="flex items-center justify-between p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100">
+        <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-white shadow-sm text-indigo-600">
+            <div className="p-2 rounded-xl bg-white shadow-sm text-slate-900">
               <Sparkles size={18} />
             </div>
             <div>
@@ -92,7 +92,7 @@ export default function ControlsPanel({
             onClick={() => setAiAssist(!aiAssist)}
             className={cn(
               "w-12 h-6 rounded-full transition-all relative",
-              aiAssist ? "bg-indigo-600" : "bg-slate-200"
+              aiAssist ? "bg-slate-900" : "bg-slate-200"
             )}
           >
             <div className={cn(
@@ -114,7 +114,7 @@ export default function ControlsPanel({
             max="0" 
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
           />
         </div>
       </div>
